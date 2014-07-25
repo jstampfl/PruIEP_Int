@@ -1,4 +1,4 @@
-Notes for PruIEP_Int
+Notes for PruIEP_Int - Three examples
 
 Hardware:
 ========================================================================
@@ -24,13 +24,37 @@ Devicetree:
 ========================================================================
 prujts1-00A0.dts - enables the PRUSS and configures P9.31 (offset 0x190) for PRU input.
 
-Program:
+Program for example1
 ========================================================================
 iepx.c - initializes the PRU and PRU INTC for Linux interrupt 0.   Waits for Host Interrupt to signal PRU program
 completion
 
-iepx.p -  Initializes the PRU IEP counter and cmp0 with interrupt on cmp0 match. Toggles P9.31 on IEP interrupt.
+iepx.p -  Initializes the PRU IEP counter and CMP0 with interrupt on CMP0 match. Toggles P9.31 on IEP interrupt.
+
+
+The PRU program iep2.p depends on the Linux program iepx.c to initialize the PRU INTC system.  Then adds initialization
+for the IEP interrupt.
+
+Program for example2
+========================================================================
+iep2.c - initializes the PRU and PRU INTC for Linux interrupt 0.   Waits for Host Interrupt to signal PRU program
+completion
+
+iep2.p -  Initializes the PRU IEP counter,CMP0 with interrupt on CMP0 match and  on CMP1 match. Toggles P9.31.  CMP0 match puts high value to the pin and resets the counter.  CMP1 match puts low value to the pin.  The values set
+means CMP0 interrupts every 4 seconds, and CMP1 interrupts 2 seconds after the counter is reset. Each loop is wait for interrrupt, if CMP1 clear the value and wait for interrupt, if CMP0 set the value and reset the counter and wait for interrupt.
 
 
 The PRU program iepx.p depends on the Linux program iepx.c to initialize the PRU INTC system.  Then adds initialization
 for the IEP interrupt.
+
+Program for example3
+========================================================================
+ieps.c -  Starts the PRUSS & Waits 30 seconds.
+
+
+ieps.p -  Initializes the PRUSS INTC interrupt system. Initializes the PRU IEP counter,CMP0 with interrupt on CMP0 match and  on CMP1 match. Toggles P9.31.  CMP0 match puts high value to the pin and resets the counter.  CMP1 match puts low value to the pin.  The values set means CMP0 interrupts every 1 seconds, and CMP1 interrupts .5 seconds after the counter is reset. Each loop is:  wait for interrrupt, if CMP1, clear the value and wait for interrupt, if CMP0, set the value and reset the counter and wait for interrupt.
+
+
+The PRU program initializes the PRU INTC system and  initializes  the IEP interrupt.
+
+This is the same program as iep2.ps above with the loop time changed and initializing the PRU INTC instead of depending on  Linux & PRUSSDRV.
