@@ -1,0 +1,36 @@
+Notes for PruIEP_Int
+
+Hardware:
+========================================================================
+Beaglebone Black B
+Orange LED
+resistor
+
+Software:
+========================================================================
+Debian 7-16, bone60
+gcc
+
+Texas Instruments "am335x_pru_package-master"
+pasm (PRUSS assembler)
+
+Hardware connections:
+========================================================================
+LED and resistor in series.
+To GND on BBB
+To P9.31 of BBB
+
+Devicetree:
+========================================================================
+prujts1-00A0.dts - enables the PRUSS and configures P9.31 (offset 0x190) for PRU input.
+
+Program:
+========================================================================
+iepx.c - initializes the PRU and PRU INTC for Linux interrupt 0.   Waits for Host Interrupt to signal PRU program
+completion
+
+iepx.p -  Initializes the PRU IEP counter and cmp0 with interrupt on cmp0 match. Toggles P9.31 on IEP interrupt.
+
+
+The PRU program iepx.p depends on the Linux program iepx.c to initialize the PRU INTC system.  Then adds initialization
+for the IEP interrupt.
