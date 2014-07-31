@@ -22,7 +22,7 @@ To P9.31 of BBB
 
 Devicetree:
 ========================================================================
-prujts1-00A0.dts - enables the PRUSS and configures P9.31 (offset 0x190) for PRU input.
+prujts1-00A0.dts - enables the PRUSS and configures P9.31 (offset 0x190) for PRU output.
 
 Program for example1
 ========================================================================
