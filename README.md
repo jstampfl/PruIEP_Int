@@ -16,4 +16,4 @@ iep2.p - The PRUSS initializes the IEP interrupt for CMP0 (compare register 0). 
 
 ieps.c - Initialize the Pruss, waits 30 seconds and exits.  Does not initialize the PRUSS INTC
 
-ieps.c - Initialize the PRUSS INTC interrupt system.  Initializes the IEP interrupts for CMP0 & CMP1.  Toggles P9.31 using interrupts form CMP0 & CMP1. 
+ieps.p - Initialize the PRUSS INTC interrupt system.  Initializes the IEP interrupts for CMP0 & CMP1.  Toggles P9.31 using interrupts form CMP0 & CMP1. 
